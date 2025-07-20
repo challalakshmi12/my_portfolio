@@ -1,0 +1,582 @@
+/* style.css */
+
+/* --- Base Styles & Variables --- */
+:root {
+    --bg-gradient-start: #1f2937; /* Dark Blue-Gray */
+    --bg-gradient-end: #111827; /* Darker Blue-Gray */
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #f9fafb; /* Off-white */
+    --text-secondary: #d1d5db; /* Light gray */
+    --accent-color: #8b5cf6; /* Purple */
+    --accent-glow: rgba(139, 92, 246, 0.5);
+    --font-family: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* --- Page Transition Animation --- */
+body {
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* --- Navigation Bar --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.navbar.scrolled {
+    background-color: rgba(20, 26, 41, 0.6);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.nav-logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 400;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--text-primary);
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: var(--text-primary);
+    transition: all 0.3s ease-in-out;
+}
+
+/* --- Hero Section (Homepage) --- */
+/* --- Hero Section (Homepage) --- */
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 80px); /* Full height minus navbar */
+    padding: 0 5%;
+}
+
+.hero-content {
+    /* UPDATED: This now handles the main layout of image vs. text/social block */
+    display: flex;
+    flex-direction: column; /* Default: Stacks items vertically on small screens */
+    align-items: center; /* Centers items horizontally when stacked */
+    gap: 3rem; /* Space between image and text/social block */
+    width: 100%;
+    max-width: 1200px;
+    text-align: center; /* Center align text inside by default for smaller screens */
+}
+
+/* --- Liquid Profile Image Styles --- */
+.liquid-profile {
+    width: 400px; /* Adjust size as needed */
+    height: 400px;
+    object-fit: cover; /* Ensures the image fills the shape without distortion */
+    border: 5px solid #8A2BE2; /* Violet border */
+    border-radius: 48% 52% 72% 28% / 40% 58% 50% 60%; /* Blob shape */
+    /* Optional: Add a subtle animation to make it look like it's moving */
+    animation: morph 8s ease-in-out infinite;
+}
+
+/* Keyframes for the blob animation */
+@keyframes morph {
+    0% {
+        border-radius: 42% 58% 68% 32% / 37% 53% 47% 63%;
+    }
+    50% {
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    }
+    100% {
+        border-radius: 42% 58% 68% 32% / 37% 53% 47% 63%;
+    }
+}
+
+.profile-image-container {
+    /* No specific new styles here needed beyond the .liquid-profile's own dimensions */
+    margin-bottom: 20px; /* Add some space below the image when stacked on small screens */
+}
+
+/* --- Wrapper for Intro Text and Social Links (NEW) --- */
+.text-and-social-wrapper {
+    display: flex;
+    flex-direction: column; /* Stacks the intro text above the social links/buttons */
+    align-items: center; /* Centers the text and social components horizontally */
+    gap: 25px; /* Space between intro text and social links block */
+}
+
+.intro-text-container {
+    /* Ensure text within is centered by default */
+    text-align: center;
+}
+
+/* --- Social Media Links and Buttons --- */
+.social-links-and-buttons {
+    display: flex; /* Arranges icons and buttons in a row (or column on small screens) */
+    flex-direction: column; /* Stacks icons above buttons on smaller screens */
+    align-items: center; /* Centers items horizontally */
+    gap: 20px; /* Space between social icons and buttons sections */
+    margin-top: 10px; /* Adjust this if you need more/less space after the typing effect paragraph */
+}
+
+.social-icons {
+    display: flex;
+    gap: 25px; /* Space between individual social media logos */
+    margin-bottom: 15px; /* Space between social icons and buttons */
+}
+
+.social-logo {
+    width: 40px; /* Medium size for logos */
+    height: 40px;
+    /* fill: currentColor; */ /* This is handled by the SVG itself, but can be overridden here */
+    transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+}
+
+.social-logo:hover {
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+/* Specific colors for social logos (overrides fill="currentColor" if present, or sets it) */
+.github-logo {
+    fill: #333; /* Standard GitHub black */
+}
+
+.github-logo:hover {
+    fill: #000; /* Darker on hover */
+}
+
+.linkedin-logo {
+    fill: #0077B5; /* Standard LinkedIn blue */
+}
+
+.linkedin-logo:hover {
+    fill: #005682; /* Darker blue on hover */
+}
+
+.action-buttons {
+    display: flex;
+    gap: 20px; /* Space between buttons */
+}
+
+.btn {
+    padding: 12px 25px; /* Medium size padding for buttons */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px; /* Medium font size */
+    text-decoration: none; /* Remove underline from links */
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #007bff; /* Example blue for primary button */
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* Example gray for secondary button */
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268; /* Darker gray on hover */
+    transform: translateY(-2px);
+}
+
+/* --- Responsive Adjustments --- */
+@media (min-width: 768px) {
+    .hero-content {
+        flex-direction: row; /* Arrange image and text/social side-by-side on larger screens */
+        text-align: left; /* Align text to the left when side-by-side */
+        justify-content: center; /* Center the entire block */
+        align-items: center; /* Vertically align items */
+        gap: 4rem; /* Restore gap between image and text/social block */
+    }
+
+    .profile-image-container {
+        margin-bottom: 0; /* Remove bottom margin when side-by-side */
+    }
+
+    .text-and-social-wrapper {
+        align-items: flex-start; /* Align text and social components to the start (left) */
+    }
+
+    .intro-text-container {
+        text-align: left; /* Align text to the left */
+    }
+
+    .social-links-and-buttons {
+        flex-direction: row; /* Arrange social icons and buttons side-by-side on larger screens */
+        justify-content: flex-start; /* Align to the left on larger screens */
+        margin-top: 30px; /* Adjust this for spacing after the text block on larger screens */
+    }
+}
+.liquid-profile {
+  width: 400px; /* Adjust size as needed */
+  height: 400px;
+  object-fit: cover; /* Ensures the image fills the shape without distortion */
+  border: 5px solid #8A2BE2; /* Violet border (BlueViolet color) */
+
+  /* The magic for the blob shape! */
+  border-radius: 48% 52% 72% 28% / 40% 58% 50% 60%;
+  /* Optional: Add a subtle animation to make it look like it's moving */
+  animation: morph 8s ease-in-out infinite;
+}
+
+/* Keyframes for the animation */
+@keyframes morph {
+  0% {
+    border-radius: 42% 58% 68% 32% / 37% 53% 47% 63%;
+  }
+  50% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  }
+  100% {
+    border-radius: 42% 58% 68% 32% / 37% 53% 47% 63%;
+  }
+}
+/* SVG for clip-path is hidden */
+.hidden-svg {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+@keyframes blob-morph {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(10deg); }
+}
+
+.intro-text-container {
+    flex-basis: 60%;
+    text-align: left;
+}
+
+.intro-text-container h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.intro-text-container p {
+    font-size: 1.8rem;
+    color: var(--text-secondary);
+}
+
+.typing-effect {
+    color: var(--accent-color);
+    font-weight: 600;
+    border-right: 2px solid var(--accent-color);
+    animation: blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--accent-color); }
+}
+
+/* --- Skills Section (Homepage) --- */
+.skills-section {
+    padding: 4rem 5%;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--text-primary);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.skill-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.skill-card img {
+    width: 50px;
+    height: 50px;
+}
+
+.skill-card span {
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+/* --- General Page Styles (About, Achievements, etc.) --- */
+.page-container {
+    padding: 8rem 5% 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+    color: var(--text-primary);
+}
+
+.content-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.content-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 25px var(--accent-glow);
+}
+
+.content-card p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.content-card strong, .content-card h3, .content-card h4 {
+    color: var(--text-primary);
+}
+
+.content-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent-color);
+}
+
+.content-card h4 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* --- Resume Page --- */
+.resume-actions {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.btn {
+    background-color: var(--accent-color);
+    color: var(--text-primary);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: #7c3aed; /* Darker accent */
+    transform: translateY(-3px);
+}
+
+.resume-viewer {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+}
+
+.resume-viewer embed {
+    border-radius: 15px;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .intro-text-container {
+        order: 1;
+        text-align: center;
+    }
+
+    .profile-image-container {
+        order: 2;
+        margin-top: 2rem;
+    }
+
+    .intro-text-container h1 {
+        font-size: 2.8rem;
+    }
+
+    .intro-text-container p {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px; /* Adjust based on navbar height */
+        flex-direction: column;
+        background-color: var(--bg-gradient-end);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        gap: 0;
+        border-top: 1px solid var(--glass-border);
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-item {
+        padding: 1.5rem 0;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    
+    .intro-text-container h1 {
+        font-size: 2.5rem;
+    }
+
+    .intro-text-container p {
+        font-size: 1.2rem;
+    }
+
+    .profile-img {
+        max-width: 300px;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+    }
+}
